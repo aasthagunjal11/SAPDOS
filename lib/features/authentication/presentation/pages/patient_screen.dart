@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'appointment.dart';
 import '../bloc/patient/patient_bloc.dart';
 import '../bloc/patient/patient_state.dart';
 import '../bloc/patient/patient_event.dart';
+import 'appointment.dart';
 
 class PatientScreen extends StatelessWidget {
   @override
@@ -11,7 +11,6 @@ class PatientScreen extends StatelessWidget {
     return Scaffold(
       body: Row(
         children: [
-          // Sidebar
           Container(
             width: 250,
             color: Color(0xFF13235A),
@@ -54,7 +53,6 @@ class PatientScreen extends StatelessWidget {
               ],
             ),
           ),
-
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -92,15 +90,22 @@ class PatientScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 20),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Doctor\'s List',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
+                  Container(
+                    width: double.infinity,
+                    color: Color(0xFF13235A),
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 10.0), 
+                      child: Text(
+                        "Doctor's List",
+                        textAlign: TextAlign.left, 
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      prefixIcon: Icon(Icons.search),
-                      filled: true,
-                      fillColor: Colors.white,
                     ),
                   ),
                   SizedBox(height: 20),
@@ -110,6 +115,7 @@ class PatientScreen extends StatelessWidget {
                         if (state is PatientInitial) {
                           return Center(child: CircularProgressIndicator());
                         } else if (state is DoctorsLoaded) {
+                          final doctors = state.doctors;
                           return GridView.builder(
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
@@ -118,8 +124,9 @@ class PatientScreen extends StatelessWidget {
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
                             ),
-                            itemCount: state.doctors.length,
+                            itemCount: doctors.length,
                             itemBuilder: (context, index) {
+                              final doctor = doctors[index];
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -145,8 +152,8 @@ class PatientScreen extends StatelessWidget {
                                           children: [
                                             CircleAvatar(
                                               radius: 25,
-                                              backgroundImage: AssetImage(
-                                                  'assets/images/doctor${index + 1}.jpg'),
+                                              backgroundImage:
+                                                  NetworkImage(doctor.image),
                                             ),
                                             SizedBox(width: 10),
                                             Column(
@@ -154,14 +161,14 @@ class PatientScreen extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  state.doctors[index],
+                                                  doctor.name,
                                                   style: TextStyle(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
                                                 Text(
-                                                  "Specialization",
+                                                  doctor.specialization,
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.grey,
@@ -185,7 +192,7 @@ class PatientScreen extends StatelessWidget {
                                             Icon(Icons.star_border,
                                                 color: Colors.yellow, size: 20),
                                             Spacer(),
-                                            Text("512"),
+                                            Text("${doctor.rating}"),
                                           ],
                                         ),
                                       ],
@@ -195,8 +202,9 @@ class PatientScreen extends StatelessWidget {
                               );
                             },
                           );
+                        } else {
+                          return Center(child: Text('No doctors found.'));
                         }
-                        return Container();
                       },
                     ),
                   ),

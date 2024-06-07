@@ -27,43 +27,47 @@ class PatientHistoryScreen extends StatelessWidget {
             children: [
               _buildProfileSection(),
               SizedBox(height: 20),
-              BlocBuilder<PatientHistoryBloc, PatientHistoryState>(
-                builder: (context, state) {
-                  if (state is PatientHistoryLoading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state is PatientHistoryLoaded) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildExpansionTile(
-                          title: 'Patient History',
-                          icon: Icons.history,
-                          items: state.history
-                              .map((item) =>
-                                  _buildListTile(item, Icons.visibility))
-                              .toList(),
+              Expanded(
+                child: BlocBuilder<PatientHistoryBloc, PatientHistoryState>(
+                  builder: (context, state) {
+                    if (state is PatientHistoryLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is PatientHistoryLoaded) {
+                      return SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildExpansionTile(
+                              title: 'Patient History',
+                              icon: Icons.history,
+                              items: state.history
+                                  .map((item) =>
+                                      _buildListTile(item, Icons.visibility))
+                                  .toList(),
+                            ),
+                            SizedBox(height: 20),
+                            _buildExpansionTile(
+                              title: 'Prescription',
+                              icon: Icons.receipt,
+                              items: state.prescriptions
+                                  .map((item) =>
+                                      _buildListTile(item, Icons.visibility))
+                                  .toList(),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 20),
-                        _buildExpansionTile(
-                          title: 'Prescription',
-                          icon: Icons.receipt,
-                          items: state.prescriptions
-                              .map((item) =>
-                                  _buildListTile(item, Icons.visibility))
-                              .toList(),
+                      );
+                    } else if (state is PatientHistoryError) {
+                      return Center(
+                        child: Text(
+                          'Error loading patient history: ${state.error}',
+                          style: TextStyle(color: Colors.red),
                         ),
-                      ],
-                    );
-                  } else if (state is PatientHistoryError) {
-                    return Center(
-                      child: Text(
-                        'Error loading patient history: ${state.error}',
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    );
-                  }
-                  return Container();
-                },
+                      );
+                    }
+                    return Container();
+                  },
+                ),
               ),
             ],
           ),
@@ -186,10 +190,4 @@ class PatientHistoryScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: PatientHistoryScreen(),
-  ));
 }

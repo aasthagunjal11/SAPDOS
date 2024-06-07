@@ -7,14 +7,18 @@ abstract class PatientHistoryState extends Equatable {
   List<Object> get props => [];
 }
 
+class PatientHistoryInitial extends PatientHistoryState {}
+
 class PatientHistoryLoading extends PatientHistoryState {}
 
 class PatientHistoryLoaded extends PatientHistoryState {
   final List<String> history;
   final List<String> prescriptions;
 
-  const PatientHistoryLoaded(
-      {required this.history, required this.prescriptions});
+  const PatientHistoryLoaded({
+    required this.history,
+    required this.prescriptions,
+  });
 
   @override
   List<Object> get props => [history, prescriptions];

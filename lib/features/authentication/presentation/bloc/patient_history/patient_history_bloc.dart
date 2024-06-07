@@ -1,32 +1,22 @@
-// patient_history_bloc.dart
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'patient_history_event.dart';
-import 'patient_history_state.dart';
+import 'package:practice_work/features/authentication/presentation/bloc/patient_history/patient_history_event.dart';
+import 'package:practice_work/features/authentication/presentation/bloc/patient_history/patient_history_state.dart';
 
-class PatientHistoryBloc
-    extends Bloc<PatientHistoryEvent, PatientHistoryState> {
-  PatientHistoryBloc() : super(PatientHistoryLoading());
+class PatientHistoryBloc extends Bloc<PatientHistoryEvent, PatientHistoryState> {
+  PatientHistoryBloc() : super(PatientHistoryInitial()) {
+    on<FetchPatientHistory>(_onFetchPatientHistory);
+  }
 
-  @override
-  Stream<PatientHistoryState> mapEventToState(
-      PatientHistoryEvent event) async* {
-    if (event is FetchPatientHistory) {
-      try {
-        await Future.delayed(Duration(seconds: 2));
-        yield PatientHistoryLoaded(
-          history: [
-            'Blood report',
-            'CT Scan report',
-          ],
-          prescriptions: [
-            '26 March 2022 Prescription',
-            '13 April 2022 Prescription',
-          ],
-        );
-      } catch (e) {
-        yield PatientHistoryError(error: 'Failed to load patient history.');
-      }
+  void _onFetchPatientHistory(
+      FetchPatientHistory event, Emitter<PatientHistoryState> emit) async {
+    emit(PatientHistoryLoading());
+    try {
+      await Future.delayed(Duration(seconds: 2));
+      final history = ['Blood report', 'CT Scan report'];
+      final prescriptions = ['26 March 2022', '26 March 2022'];
+      emit(PatientHistoryLoaded(history: history, prescriptions: prescriptions));
+    } catch (e) {
+      emit(PatientHistoryError(error: e.toString()));
     }
   }
 }
