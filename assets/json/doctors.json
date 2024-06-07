@@ -1,0 +1,40 @@
+[
+    
+    {
+      "name": "Dr. Jane Smith",
+      "specialization": "Neurologist",
+      "rating": 3,
+      "image": "https://media.istockphoto.com/id/1222943575/photo/medical-concept-of-asian-beautiful-female-doctor-in-white-coat-with-stethoscope-waist-up.jpg?s=1024x1024&w=is&k=20&c=ojpTaTzXA2OW-7NhJjWe-FwlpsvHVP-QI7k6eq6ls7M="
+    },
+    {
+      "name": "Dr. Eren Yegar",
+      "specialization": "Dermatologist",
+      "rating": 4.5,
+      "image": "https://media.istockphoto.com/id/1425798970/photo/beautiful-caucasian-female-doctor-smiles-cheerfully-at-the-camera.jpg?s=1024x1024&w=is&k=20&c=l5kT0Bmyzi-iPSW3f9dpoSkY0ZGZukbxRlOQV-b19PQ="
+    },
+    {
+      "name": "Dr. Bob Brown",
+      "specialization": "Pediatrician",
+      "rating": 5,
+      "image": "https://media.istockphoto.com/id/1204395138/photo/smiling-doctor-with-strethoscope-isolated-on-grey.jpg?s=1024x1024&w=is&k=20&c=IXvIgmTFJuNrawFI1wmLEC9DsRH0_C8ukdyegrRsq84="
+    },
+    {
+      "name": "Dr. Charlie White",
+      "specialization": "Orthopedic",
+      "rating": 4.4,
+      "image": "https://media.istockphoto.com/id/1224728100/photo/serious-doctor-on-light-green.jpg?s=1024x1024&w=is&k=20&c=p2Z2zIfeE2pbFbHFpUvZaN25CLx0pYm9k9vrfHC26G0="
+    },
+    {
+      "name": "Dr. Ruth B",
+      "specialization": "Orthopedic",
+      "rating": 2,
+      "image": "https://media.istockphoto.com/id/1938555082/photo/doctor-working-at-a-laboratory-and-holding-a-medical-chart.jpg?s=1024x1024&w=is&k=20&c=z9QLjK1yYgchvs1mPc3EV8Pn8EcQvL8toJgUFBxC3y8="
+    },
+    {
+      "name": "Dr. Reinar",
+      "specialization": "Orthopedic",
+      "rating": 3.5,
+      "image": "https://media.istockphoto.com/id/1227538708/photo/the-scientific-world-is-about-pushing-developments.jpg?s=1024x1024&w=is&k=20&c=MglTyV2YfOCd4rMz212ZW8XoG0MHh5VWYXSwFEEGW58="
+    }
+  ]
+  
